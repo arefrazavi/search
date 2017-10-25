@@ -1,13 +1,23 @@
 <?php
-namespace App;
-use ScoutElastic\SearchableModel;
 
-class Book extends SearchableModel
+namespace App;
+
+use ScoutElastic\Searchable;
+use Illuminate\Database\Eloquent\Model;
+
+class Book extends Model
 {
+    use Searchable;
+
     // We don't want to use timestamps in this tutorial
     public $timestamps = false;
+
     protected $indexConfigurator = SearchIndexConfigurator::class;
-// We don't analyze numbers, all text is in English
+
+    protected $searchRules = [
+        //
+    ];
+
     protected $mapping = [
         'properties' => [
             'id' => [
@@ -32,6 +42,7 @@ class Book extends SearchableModel
             ]
         ]
     ];
+
     // Each book belongs to one author
     public function author()
     {
