@@ -15,7 +15,7 @@ class Book extends Model
     protected $indexConfigurator = SearchIndexConfigurator::class;
 
     protected $searchRules = [
-        //
+        BookSearchRule::class
     ];
 
     protected $mapping = [
@@ -39,6 +39,10 @@ class Book extends Model
             'author_id' => [
                 'type' => 'integer',
                 'index' => 'not_analyzed'
+            ],
+            'author_name' => [
+                'type' => 'string',
+                'analyzer' => 'english'
             ]
         ]
     ];
@@ -47,5 +51,16 @@ class Book extends Model
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        $array['author_name'] = $this->author->name;
+
+        return $array;
     }
 }
