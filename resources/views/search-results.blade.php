@@ -55,20 +55,29 @@
     </div>
 
     <article class="content">
-        <h1> Search By Author <small> ({{ $authorName }})</small> </h1>
-        @foreach($resultsByAuthorName as $result)
-        <h3> {{ $result->title }} <small> ({{ $result->year }})</small>  </h3>
-        <p> {{ $result->description }} </p>
-        @endforeach
-
+        @if(isset($resultsByAuthorName))
+            <h1> Search By Author
+                <small> ({{ $authorName }})</small>
+            </h1>
+            @foreach($resultsByAuthorName as $result)
+                <h3> {{ $result->title }}
+                    <small> ({{ $result->year }})</small>
+                </h3>
+                <p> {{ $result->description }} </p>
+            @endforeach
+        @endif
         <div style="background: black; height: 10px; width: 100%"></div>
 
         <h1> Search Results </h1>
-        @foreach($results as $result)
-            <h3>  {{ $result->title  }} <small> ({{ $result->year }})</small>  </h3>
-            <p> {{ $result->description }} </p>
-            <hr>
-        @endforeach
+        @if(isset($results))
+            @foreach($results as $result)
+                <h3>  {{ $result->title  }}
+                    <small> ({{ $result->year }})</small>
+                </h3>
+                <p> {{ $result->description }} </p>
+                <hr>
+            @endforeach
+        @endif
     </article>
 </div>
 </body>
